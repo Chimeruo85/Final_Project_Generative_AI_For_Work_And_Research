@@ -1,282 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generative AI Portfolio</title>
-    <style>
-        /* --- Base & Reset --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    <title>Chimeruo Ugochi Egbo | GenAI Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        background: '#0a0a0a',
+                        surface: '#171717',
+                        primary: '#14b8a6', // Teal
+                        secondary: '#8b5cf6', // Violet
+                    }
+                }
+            }
         }
+    </script>
+    <style>
         body {
-            /* Elegant dark gradient background */
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #ffffff;
-            line-height: 1.6;
+            background-color: #0a0a0a;
+            color: #f3f4f6;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* --- Header & Avatar --- */
-        header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            background: rgba(0, 0, 0, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-        .avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #4facfe;
-            box-shadow: 0 0 25px rgba(79, 172, 254, 0.6);
-            margin: 0 auto 20px;
-            display: block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(79, 172, 254, 0.9);
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: -webkit-linear-gradient(#4facfe, #00f2fe);
+        .gradient-text {
+            background: linear-gradient(135deg, #14b8a6, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-        p.subtitle {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 600px;
-            margin: 0 auto;
+            background-clip: text;
         }
 
-        /* --- Navigation --- */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            background: rgba(15, 32, 39, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-        nav a:hover {
-            color: #4facfe;
+        .hero-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: float 10s infinite alternate ease-in-out;
         }
 
-        /* --- Main Content & Sections --- */
-        main {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        section {
-            /* Glassmorphism effect */
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        section h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #4facfe;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        section p, section ul {
-            font-size: 1.1rem;
-            color: #e0e0e0;
-            margin-bottom: 15px;
-        }
-        section ul {
-            list-style-position: inside;
-            padding-left: 10px;
+        .blob-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(20, 184, 166, 0.3); }
+        .blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: rgba(139, 92, 246, 0.3); animation-delay: -5s;}
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
         }
 
-        /* --- Projects Grid --- */
-        .projects-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .project-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 0, 0, 0.5);
-        }
-        .project-card h3 {
-            color: #00f2fe;
-            margin-bottom: 10px;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
-            color: #111;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            border: none;
-            transition: box-shadow 0.3s;
-        }
-        .btn:hover {
-            box-shadow: 0 0 15px #4facfe;
-        }
-
-        /* --- Scroll Reveal Animation --- */
-        .reveal {
+        /* Fade in animation classes */
+        .fade-in {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .reveal.active {
+        
+        .fade-in.appear {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* --- Toast Notification --- */
-        #toast {
-            position: fixed;
-            bottom: -100px;
-            right: 30px;
-            background: linear-gradient(135deg, #11998e, #38ef7d);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            font-weight: bold;
-            transition: bottom 0.5s ease-in-out;
-            z-index: 1000;
+        /* Project card hover effects */
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        #toast.show {
-            bottom: 30px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.3);
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-primary selection:text-white">
 
-    <header>
-        <img src="https://raw.githubusercontent.com/Chimeruo85/Final_Project_Generative_AI_For_Work_And_Research/main/Pix.jpeg" alt="My Profile Picture" class="avatar">
-        <h1>Final Project Portfolio</h1>
-        <p class="subtitle">Generative AI for Work & Research</p>
-    </header>
-
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#course">The Course</a>
-        <a href="#projects">Projects</a>
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-serif font-bold tracking-wider text-white">CE.</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#course" class="hover:text-primary transition-colors">Course</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+            </div>
+            <a href="https://linkedin.com/in/chimeruoegbo" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                <i class="fab fa-linkedin text-xl"></i>
+            </a>
+        </div>
     </nav>
 
-    <main>
-        <section id="about" class="reveal">
-            <h2>About Me</h2>
-            <p>Welcome to my portfolio! I am an enthusiastic professional leveraging the power of Artificial Intelligence to solve complex, real-world problems. My background spans data analysis, research, and web application development.</p>
-            <p><em>(CV Details: Feel free to paste your specific professional summary, education, and work experience here. Your email has been strictly excluded from this site to prevent spam.)</em></p>
-        </section>
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="hero-blob blob-1 rounded-full"></div>
+        <div class="hero-blob blob-2 rounded-full"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center fade-in">
+            <p class="text-primary font-medium tracking-widest uppercase mb-4 text-sm">Portfolio &bull; Final Project</p>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-6 text-white">
+                Chimeruo Ugochi <span class="gradient-text">Egbo</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Public Health & Systems Analyst leveraging Generative AI to advance equitable access to healthcare and data-driven policy.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    View Projects
+                </a>
+                <a href="#about" class="px-8 py-3 rounded-full glass text-white font-medium hover:bg-white/10 transition-colors">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <section id="course" class="reveal">
-            <h2>About the Course</h2>
-            <p><strong>Generative AI for Work & Research</strong></p>
-            <p>This course explored the cutting edge of Generative AI, equipping students with the tools to integrate large language models, automated data analysis, and AI-driven development into modern workflows.</p>
-            <ul>
-                <li>Applying AI to scale research methodologies.</li>
-                <li>Developing full-stack applications with AI assistance.</li>
-                <li>Automating complex data analysis pipelines.</li>
-            </ul>
-        </section>
-
-        <section id="projects" class="reveal">
-            <h2>About My Projects</h2>
-            <p>Throughout this course, I developed practical applications that bridge the gap between abstract AI concepts and tangible utility. Below are the highlights of my final deliverables.</p>
-
-            <div class="projects-container">
-                <div class="project-card">
-                    <h3>Project 1: RhogamConnect</h3>
-                    <p><strong>Type:</strong> Web Application</p>
-                    <p>A comprehensive webapp designed to streamline connections and data flow. Developed utilizing AI-assisted coding frameworks and robust architectural planning (as detailed in the Project 1 deck).</p>
-                    <button class="btn" onclick="showToast('RhogamConnect link will be added soon!')">View WebApp</button>
+    <section id="about" class="py-24 relative z-10 bg-surface/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">About <span class="text-primary">Me</span></h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        With over 13 years of progressively responsible experience within Nigeria's National Health Insurance Authority (NHIA), I combine health insurance operations, business intelligence, and data governance to improve service-delivery.
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        My focus lies at the intersection of planetary health systems, equity, and universal health coverage. I am passionate about translating complex health-system challenges into actionable, data-informed frameworks.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 rounded-full glass text-xs font-medium text-gray-300">Health Systems</span>
+                        <span class="px-4 py-2 rounded-full glass text-xs font-medium text-gray-300">Data Analytics</span>
+                        <span class="px-4 py-2 rounded-full glass text-xs font-medium text-gray-300">Public Policy</span>
+                        <span class="px-4 py-2 rounded-full glass text-xs font-medium text-gray-300">Equity</span>
+                    </div>
                 </div>
-
-                <div class="project-card">
-                    <h3>Project 2: Disease Analysis</h3>
-                    <p><strong>Type:</strong> Automated Data Analysis</p>
-                    <p>An HTML-based analytical report focusing on Water Pollution and its correlation with disease vectors. This project utilized automated scripts to clean, process, and visualize critical health data.</p>
-                    <button class="btn" onclick="showToast('Analysis link will be added soon!')">View Analysis</button>
+                
+                <div class="space-y-6 fade-in" style="transition-delay: 200ms;">
+                    <!-- Education -->
+                    <div class="glass p-6 rounded-2xl">
+                        <h3 class="text-xl font-serif mb-4 flex items-center gap-3"><i class="fas fa-graduation-cap text-secondary"></i> Education</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium text-gray-200">Master of Health Administration (MHA)</h4>
+                                <p class="text-sm text-gray-500">IICSE University, USA</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-200">Bachelor of Science, Computer Science</h4>
+                                <p class="text-sm text-gray-500">Nnamdi Azikiwe University, Nigeria</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tools -->
+                    <div class="glass p-6 rounded-2xl">
+                        <h3 class="text-xl font-serif mb-4 flex items-center gap-3"><i class="fas fa-tools text-primary"></i> Tech Stack & AI</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">Power BI</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">SQL</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">Python</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">Tableau</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">Claude</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">Gemini</span>
+                            <span class="text-sm text-gray-400 bg-black/30 px-3 py-1 rounded">ChatGPT</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <div id="toast">Placeholder text</div>
+    <section id="course" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">About the <span class="gradient-text">Course</span></h2>
+            <div class="glass p-8 md:p-12 rounded-3xl relative overflow-hidden text-left mt-10">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                <h3 class="text-2xl font-semibold mb-4 text-white">Generative AI for Work & Research</h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    This portfolio serves as the capstone for the "Generative AI for Work & Research" course. The program explored the transformative potential of Large Language Models and AI tools in streamlining complex workflows, enhancing data analysis, and driving innovation.
+                </p>
+                <p class="text-gray-400 leading-relaxed">
+                    By integrating AI capabilities—such as automated data interpretation, rapid prototyping with tools like Cursor, and strategic problem-solving—this course has empowered me to conceptualize and develop robust digital health solutions and analytical reports that address real-world planetary and human health challenges.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 relative z-10 bg-surface/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Featured <span class="text-secondary">Projects</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Explore the practical applications of AI and data analytics in public health innovation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                
+                <!-- Project 1: RhogamConnect -->
+                <div class="project-card glass rounded-3xl overflow-hidden flex flex-col fade-in group">
+                    <div class="h-48 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 relative p-6 flex flex-col justify-end overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://placehold.co/800x400/1e1e2f/ffffff?text=Maternal+Health+App')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700"></div>
+                        <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold border border-white/10">
+                            WebApp
+                        </div>
+                        <h3 class="text-2xl font-bold text-white relative z-10">RhogamConnect</h3>
+                        <p class="text-gray-300 text-sm relative z-10">Maternal Health Digital Platform</p>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed flex-grow">
+                            A digital platform designed to connect Rhesus-Negative women to life-saving Rho(D) Immunoglobulin. It solves the critical problem of medication access by providing location-based vendor discovery, price transparency, and real-time availability. 
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20">Digital Health</span>
+                            <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded border border-secondary/20">Innovation</span>
+                            <span class="text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/20">SDG 3</span>
+                        </div>
+                        <!-- Placeholder Link -->
+                        <a href="#" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors group">
+                            View WebApp <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Water Pollution -->
+                <div class="project-card glass rounded-3xl overflow-hidden flex flex-col fade-in group" style="transition-delay: 150ms;">
+                    <div class="h-48 bg-gradient-to-br from-teal-900/50 to-emerald-900/50 relative p-6 flex flex-col justify-end overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://placehold.co/800x400/0f2922/ffffff?text=Data+Analytics+Report')] bg-cover bg-center opacity-20 group-hover:scale-105 transition-transform duration-700"></div>
+                        <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold border border-white/10">
+                            Automated Data Analysis
+                        </div>
+                        <h3 class="text-2xl font-bold text-white relative z-10">Water Pollution & Disease</h3>
+                        <p class="text-gray-300 text-sm relative z-10">Planetary Health Analysis Report</p>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed flex-grow">
+                            An automated, data-driven report analyzing the direct impacts of water pollution on societal health. This project leverages data analytics to highlight vulnerabilities in LMIC health systems under environmental stressors, translating complex datasets into clear policy insights.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20">Data Analytics</span>
+                            <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded border border-secondary/20">Planetary Health</span>
+                            <span class="text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/20">Research</span>
+                        </div>
+                        <!-- Placeholder Link -->
+                        <a href="#" class="inline-flex items-center justify-center w-full py-3 rounded-xl glass text-white font-semibold hover:bg-white/10 transition-colors group border border-white/10">
+                            View Report <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-white/10 bg-black text-center text-sm text-gray-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Chimeruo Ugochi Egbo. All rights reserved.</p>
+            <div class="flex gap-4 items-center">
+                <a href="#home" class="hover:text-white transition-colors">Back to Top</a>
+                <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                <a href="https://linkedin.com/in/chimeruoegbo" target="_blank" class="hover:text-white transition-colors">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // --- Scroll Reveal Logic ---
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        
-        // Trigger reveal on scroll and on initial load
-        window.addEventListener("scroll", reveal);
-        reveal(); 
+        // Intersection Observer for scroll fade-in animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
 
-        // --- Custom Toast Notification Logic ---
-        function showToast(message) {
-            var toast = document.getElementById("toast");
-            toast.innerText = message;
-            toast.className = "show";
-            
-            // Hide toast after 3 seconds
-            setTimeout(function(){ 
-                toast.className = toast.className.replace("show", ""); 
-            }, 3000);
-        }
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        observer.unobserve(entry.target); // Run once
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Navbar background change on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+                    navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.03)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
