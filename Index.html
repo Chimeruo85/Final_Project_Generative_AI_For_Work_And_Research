@@ -3,543 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chimeruo Egbo | Final Project: Gen AI for Work & Research</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <title>Generative AI Portfolio</title>
     <style>
-        :root {
-            --bg-color: #0a0a0f;
-            --text-main: #f0f0f0;
-            --text-muted: #a0a0b0;
-            --primary: #6366f1;
-            --secondary: #d946ef;
-            --accent: #0ea5e9;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --glass-bg: rgba(10, 10, 15, 0.7);
-        }
-
+        /* --- Base & Reset --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-
-        html {
+        body {
+            /* Elegant dark gradient background */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
+        /* --- Header & Avatar --- */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
-
-        /* Background Gradients */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .bg-glow::before, .bg-glow::after {
-            content: '';
-            position: absolute;
+        .avatar {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: float 20s infinite alternate;
+            object-fit: cover;
+            border: 4px solid #4facfe;
+            box-shadow: 0 0 25px rgba(79, 172, 254, 0.6);
+            margin: 0 auto 20px;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .bg-glow::before {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--primary), transparent 70%);
-            top: -200px;
-            left: -200px;
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(79, 172, 254, 0.9);
         }
-
-        .bg-glow::after {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--secondary), transparent 70%);
-            bottom: -100px;
-            right: -100px;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 50px); }
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: -webkit-linear-gradient(#4facfe, #00f2fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
         }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--card-border);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--text-main);
-        }
-
-        section {
-            padding: 8rem 10% 4rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        #home {
-            text-align: center;
-            align-items: center;
-        }
-
-        .hero-title {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-subtitle {
+        p.subtitle {
             font-size: 1.2rem;
-            color: var(--text-muted);
+            color: #ccc;
             max-width: 600px;
-            margin: 0 auto 3rem;
+            margin: 0 auto;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 600;
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 32, 39, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        nav a {
+            color: #fff;
             text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        nav a:hover {
+            color: #4facfe;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 4px 15px rgba(217, 70, 239, 0.3);
+        /* --- Main Content & Sections --- */
+        main {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        section {
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4facfe;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        section p, section ul {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+        section ul {
+            list-style-position: inside;
+            padding-left: 10px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(217, 70, 239, 0.5);
-        }
-
-        /* Layout Grids */
-        .grid-2 {
+        /* --- Projects Grid --- */
+        .projects-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
+            gap: 25px;
+            margin-top: 30px;
         }
-
-        .glass-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .cv-timeline {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .cv-item {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .cv-item::before {
-            content: '';
-            position: absolute;
-            left: -2.4rem;
-            top: 0.3rem;
-            width: 16px;
-            height: 16px;
-            background: var(--bg-color);
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-        }
-
-        .cv-date {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
         .project-card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
-
-        .project-tag {
-            background: rgba(99, 102, 241, 0.2);
-            color: #818cf8;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .project-card h3 {
+            color: #00f2fe;
+            margin-bottom: 10px;
+        }
+        .btn {
             display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .project-links {
-            margin-top: auto;
-            padding-top: 1.5rem;
-        }
-
-        .project-links a {
-            color: var(--text-main);
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: #111;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            border: none;
+            transition: box-shadow 0.3s;
+        }
+        .btn:hover {
+            box-shadow: 0 0 15px #4facfe;
         }
 
-        .project-links a:hover {
-            color: var(--secondary);
-            border-color: var(--secondary);
-        }
-
-        /* Scroll Animation Classes */
+        /* --- Scroll Reveal Animation --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid var(--card-border);
-            margin-top: 4rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Media Queries */
-        @media (max-width: 992px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .hero-title {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                display: none; /* Simplistic approach for mobile nav for this context */
-            }
-            section {
-                padding: 6rem 5% 3rem;
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .toast-notification {
+        /* --- Toast Notification --- */
+        #toast {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            bottom: -100px;
+            right: 30px;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(217, 70, 239, 0.4);
-            transform: translateY(150%);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 2000;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            font-weight: bold;
+            transition: bottom 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        #toast.show {
+            bottom: 30px;
         }
 
-        .toast-notification.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .avatar-container {
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
-
-        .avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .avatar:hover {
-            transform: scale(1.08) rotate(2deg);
-            border-color: var(--secondary);
-            box-shadow: 0 0 35px rgba(217, 70, 239, 0.7);
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Elements -->
-    <div class="bg-glow"></div>
+    <header>
+        <img src="https://raw.githubusercontent.com/Chimeruo85/Final_Project_Generative_AI_For_Work_And_Research/main/Pix.jpeg" alt="My Profile Picture" class="avatar">
+        <h1>Final Project Portfolio</h1>
+        <p class="subtitle">Generative AI for Work & Research</p>
+    </header>
 
     <nav>
-        <a href="#home" class="logo">Portfolio<span style="color: var(--primary);">.</span></a>
-        <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#course">The Course</a></li>
-            <li><a href="#projects">Projects</a></li>
-        </ul>
+        <a href="#about">About Me</a>
+        <a href="#course">The Course</a>
+        <a href="#projects">Projects</a>
     </nav>
 
-    <section id="home">
-        <div class="container reveal">
-            <div class="avatar-container">
-                <img src="https://raw.githubusercontent.com/Chimeruo85/Final_Project_Generative_AI_For_Work_And_Research/main/Pix.jpeg" 
-                     alt="Chimeruo Egbo Avatar" 
-                     class="avatar"
-                     onerror="this.onerror=null; this.src='https://placehold.co/160x160/6366f1/ffffff?text=CE';">
-            </div>
-            <h1 class="hero-title">Showcasing <br><span class="gradient-text">Generative AI</span> in Action</h1>
-            <p class="hero-subtitle">Exploring the intersection of data analysis, web applications, and artificial intelligence to solve complex modern challenges.</p>
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-        </div>
-    </section>
+    <main>
+        <section id="about" class="reveal">
+            <h2>About Me</h2>
+            <p>Welcome to my portfolio! I am an enthusiastic professional leveraging the power of Artificial Intelligence to solve complex, real-world problems. My background spans data analysis, research, and web application development.</p>
+            <p><em>(CV Details: Feel free to paste your specific professional summary, education, and work experience here. Your email has been strictly excluded from this site to prevent spam.)</em></p>
+        </section>
 
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title reveal">About Me & Experience</h2>
-            <div class="grid-2">
-                <div class="glass-card reveal">
-                    <h3 style="color: var(--text-main);">My Journey</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1rem;">
-                        I am deeply passionate about leveraging emerging technologies to extract meaningful insights from data and build intuitive user experiences. My focus lies at the crossroads of data science, web development, and artificial intelligence.
-                    </p>
-                    <p style="color: var(--text-muted);">
-                        Through continuous learning and hands-on projects, I aim to develop tools that automate complex workflows and present critical information in an accessible manner, driving better decision-making in both business and research environments.
-                    </p>
-                </div>
-                
-                <!-- CV Section -->
-                <div class="glass-card reveal" style="transition-delay: 0.2s;">
-                    <h3>Curriculum Vitae</h3>
-                    <div class="cv-timeline">
-                        <div class="cv-item">
-                            <span class="cv-date">Present</span>
-                            <h4>Business Analyst / Researcher</h4>
-                            <p style="color: var(--text-muted); font-size: 0.9rem;">Specializing in Generative AI for Work & Research. Developing automated analytical pipelines and intelligent web applications.</p>
-                        </div>
-                        <div class="cv-item">
-                            <span class="cv-date">Previous Experience</span>
-                            <h4>Data & Development Analyst</h4>
-                            <p style="color: var(--text-muted); font-size: 0.9rem;">Worked on data modeling, frontend architecture, and creating interactive visualizations for data-driven insights.</p>
-                        </div>
-                        <div class="cv-item">
-                            <span class="cv-date">Core Skills</span>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
-                                • Generative AI & Prompt Engineering<br>
-                                • Data Analysis & Visualization<br>
-                                • Web Application Development<br>
-                                • Problem Solving & System Architecture
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section id="course" class="reveal">
+            <h2>About the Course</h2>
+            <p><strong>Generative AI for Work & Research</strong></p>
+            <p>This course explored the cutting edge of Generative AI, equipping students with the tools to integrate large language models, automated data analysis, and AI-driven development into modern workflows.</p>
+            <ul>
+                <li>Applying AI to scale research methodologies.</li>
+                <li>Developing full-stack applications with AI assistance.</li>
+                <li>Automating complex data analysis pipelines.</li>
+            </ul>
+        </section>
 
-    <section id="course">
-        <div class="container">
-            <h2 class="section-title reveal">About the Course</h2>
-            <div class="glass-card reveal" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <h3 class="gradient-text" style="font-size: 2rem; margin-bottom: 1.5rem;">Generative AI for Work & Research</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                    This capstone course explores the transformative potential of Generative AI in modern workflows. 
-                    It bridges the gap between theoretical AI concepts and practical application, empowering students to 
-                    automate data analysis, enhance research methodologies, and build intelligent web applications. 
-                    The curriculum culminates in this portfolio, showcasing hands-on projects that demonstrate tangible 
-                    impact and technical proficiency.
-                </p>
-            </div>
-        </div>
-    </section>
+        <section id="projects" class="reveal">
+            <h2>About My Projects</h2>
+            <p>Throughout this course, I developed practical applications that bridge the gap between abstract AI concepts and tangible utility. Below are the highlights of my final deliverables.</p>
 
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title reveal">My Projects</h2>
-            <div class="project-grid">
-                
-                <!-- Project 1 Card -->
-                <div class="glass-card project-card reveal">
-                    <span class="project-tag">Web Application / Deck</span>
-                    <h3 style="font-size: 1.5rem;">RhogamConnect</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-                        A comprehensive web application designed to streamline connectivity and resource sharing. 
-                        This project focuses on intuitive user interfaces, robust backend integration, and solving specific logistical challenges outlined in the project deck.
-                    </p>
-                    <div class="project-links">
-                        <a href="#" onclick="event.preventDefault(); showToast('Link Placeholder: WebApp URL will be added here.');">
-                            View Project 1 (Placeholder) <span>→</span>
-                        </a>
-                    </div>
+            <div class="projects-container">
+                <div class="project-card">
+                    <h3>Project 1: RhogamConnect</h3>
+                    <p><strong>Type:</strong> Web Application</p>
+                    <p>A comprehensive webapp designed to streamline connections and data flow. Developed utilizing AI-assisted coding frameworks and robust architectural planning (as detailed in the Project 1 deck).</p>
+                    <button class="btn" onclick="showToast('RhogamConnect link will be added soon!')">View WebApp</button>
                 </div>
 
-                <!-- Project 2 Card -->
-                <div class="glass-card project-card reveal" style="transition-delay: 0.2s;">
-                    <span class="project-tag">Automated Data Analysis / HTML</span>
-                    <h3 style="font-size: 1.5rem;">Water Pollution Disease Analysis</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-                        An automated data analysis pipeline correlating water quality metrics with disease outbreaks. 
-                        Rendered via an interactive HTML report, it highlights critical environmental insights using generative AI analytical techniques.
-                    </p>
-                    <div class="project-links">
-                        <a href="#" onclick="event.preventDefault(); showToast('Link Placeholder: HTML Analysis Report URL will be added here.');">
-                            View Project 2 (Placeholder) <span>→</span>
-                        </a>
-                    </div>
+                <div class="project-card">
+                    <h3>Project 2: Disease Analysis</h3>
+                    <p><strong>Type:</strong> Automated Data Analysis</p>
+                    <p>An HTML-based analytical report focusing on Water Pollution and its correlation with disease vectors. This project utilized automated scripts to clean, process, and visualize critical health data.</p>
+                    <button class="btn" onclick="showToast('Analysis link will be added soon!')">View Analysis</button>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Portfolio. Chimeruo Ugochi Egbo. Built for Generative AI for Work & Research.</p>
-        </div>
-    </footer>
-
-    <div id="toast" class="toast-notification"></div>
+    <div id="toast">Placeholder text</div>
 
     <script>
-        // Custom Toast Notification Function
-        let toastTimeout;
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('show');
-            
-            // Clear existing timeout if multiple clicks happen
-            if (toastTimeout) clearTimeout(toastTimeout);
-            
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Scroll Reveal Animation Logic
+        // --- Scroll Reveal Logic ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -552,12 +261,22 @@
                 }
             }
         }
-
-        // Listen for scroll events
-        window.addEventListener("scroll", reveal);
         
-        // Trigger once on initial load to show elements already in view
-        reveal();
+        // Trigger reveal on scroll and on initial load
+        window.addEventListener("scroll", reveal);
+        reveal(); 
+
+        // --- Custom Toast Notification Logic ---
+        function showToast(message) {
+            var toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "show";
+            
+            // Hide toast after 3 seconds
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("show", ""); 
+            }, 3000);
+        }
     </script>
 </body>
 </html>
